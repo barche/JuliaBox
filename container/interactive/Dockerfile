@@ -1,11 +1,14 @@
 # Docker file for JuliaBox
 # Version:42
 
-FROM julialang/juliaboxpkgdist:v0.3.12
+FROM julialang/julia
 # Switching the base to the bare julia image helps during JuliaBox development by reducing image size
 # FROM julialang/julia:v0.3.12
 
 MAINTAINER Tanmay Mohapatra
+
+RUN easy_install widgetsnbextension
+RUN easy_install ipywidgets
 
 RUN ln -fs /opt/julia/bin/julia /usr/bin/julia
 RUN git clone https://github.com/tanmaykm/shellinabox_fork.git; cd shellinabox_fork; ./configure; make install; cd ..; rm -rf shellinabox_fork
@@ -19,29 +22,24 @@ RUN groupadd juser \
     && useradd -m -d /home/juser -s /bin/bash -g juser -G staff juser \
     && echo "export HOME=/home/juser" >> /home/juser/.bashrc
 
-# link Julia v0.3
-RUN ln -fs /opt/julia_0.3.12 /opt/julia-0.3.12 && \
-    ln -fs /opt/julia-0.3.12 /opt/julia-0.3
-
 # add Julia v0.4 build
-RUN mkdir -p /opt/julia-0.4.6 && \
-    curl -s -L https://julialang.s3.amazonaws.com/bin/linux/x64/0.4/julia-0.4.6-linux-x86_64.tar.gz | tar -C /opt/julia-0.4.6 -x -z --strip-components=1 -f -
-RUN ln -fs /opt/julia-0.4.6 /opt/julia-0.4
+RUN mkdir -p /opt/julia-0.4.7 && \
+    curl -s -L https://julialang.s3.amazonaws.com/bin/linux/x64/0.4/julia-0.4.7-linux-x86_64.tar.gz | tar -C /opt/julia-0.4.7 -x -z --strip-components=1 -f -
+RUN ln -fs /opt/julia-0.4.7 /opt/julia-0.4
 
-# add Julia v0.5 nightly build
-RUN mkdir -p /opt/julia-0.5.0-dev && \
-    curl -s -L https://status.julialang.org/download/linux-x86_64 | tar -C /opt/julia-0.5.0-dev -x -z --strip-components=1 -f -
-RUN ln -fs /opt/julia-0.5.0-dev /opt/julia-0.5
+# add Julia v0.5
+RUN mkdir -p /opt/julia-0.5.0 && \
+    curl -s -L https://julialang.s3.amazonaws.com/bin/linux/x64/0.5/julia-0.5.0-linux-x86_64.tar.gz | tar -C /opt/julia-0.5.0 -x -z --strip-components=1 -f -
+RUN ln -fs /opt/julia-0.5.0 /opt/julia-0.5
 
-# make Julia 0.4 the default
-RUN rm /opt/julia && ln -fs /opt/julia-0.4.6 /opt/julia
+# Make Julia 0.5 the default
+RUN rm /opt/julia && ln -fs /opt/julia-0.5 /opt/julia
 
 # JuliaBox package bundle shall be mounted at /opt/julia_packages.
 # They are added to LOAD_PATH through respective juliarc.jl scripts.
 RUN mkdir /opt/julia_packages
 RUN echo 'push!(LOAD_PATH, "/opt/julia_packages/.julia/v0.5/"); push!(Base.LOAD_CACHE_PATH, "/opt/julia_packages/.julia/lib/v0.5"); try using JuliaBoxUtils; JuliaBoxUtils.SysLim.setrlimit(JuliaBoxUtils.SysLim.RLIMIT_NOFILE, 256) end' >> /opt/julia-0.5/etc/julia/juliarc.jl
 RUN echo 'push!(LOAD_PATH, "/opt/julia_packages/.julia/v0.4/"); push!(Base.LOAD_CACHE_PATH, "/opt/julia_packages/.julia/lib/v0.4"); try using JuliaBoxUtils; JuliaBoxUtils.SysLim.setrlimit(JuliaBoxUtils.SysLim.RLIMIT_NOFILE, 256) end' >> /opt/julia-0.4/etc/julia/juliarc.jl
-RUN echo 'push!(LOAD_PATH, "/opt/julia_packages/.julia/v0.3/"); try using JuliaBoxUtils; JuliaBoxUtils.SysLim.setrlimit(JuliaBoxUtils.SysLim.RLIMIT_NOFILE, 256) end' >> /opt/julia-0.3/etc/julia/juliarc.jl
 
 # Data volumes shall be mounted at /mnt/data
 RUN mkdir /mnt/data

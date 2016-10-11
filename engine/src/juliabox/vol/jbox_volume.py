@@ -66,7 +66,7 @@ class JBoxVol(LoggerMixin):
 
     # files that must be restored from user home for proper functioning of JuliaBox
     USER_HOME_ESSENTIALS = ['.juliabox', '.ipython/README', '.ipython/kernels',
-                            '.ipython/profile_julia', '.ipython/profile_default']
+                            '.ipython/profile_julia', '.ipython/profile_default', '.local/share/jupyter/kernels']
 
     SH_DEVICE_VERSION = None
 

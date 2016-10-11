@@ -25,11 +25,11 @@ function list_packages {
 }
 
 # Install packages for Julia 0.4 and 0.5
-DEFAULT_PACKAGES="IJulia PyPlot Interact Colors SymPy PyCall"
+DEFAULT_PACKAGES="IJulia PyPlot Interact Colors SymPy PyCall Plots GR TikzPictures"
 INTERNAL_PACKAGES="https://github.com/tanmaykm/JuliaBoxUtils.jl.git"
 BUILD_PACKAGES="JuliaBoxUtils IJulia PyPlot"
 
-for ver in 0.3 0.4 0.5
+for ver in 0.4 0.5
 do
     init_packages "$ver"
     include_packages "$ver" "$DEFAULT_PACKAGES" "add"
