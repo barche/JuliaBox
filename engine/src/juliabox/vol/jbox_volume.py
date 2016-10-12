@@ -65,8 +65,7 @@ class JBoxVol(LoggerMixin):
     CONFIG_MOUNT_POINT = '/opt/juliabox'
 
     # files that must be restored from user home for proper functioning of JuliaBox
-    USER_HOME_ESSENTIALS = ['.juliabox', '.ipython/README', '.ipython/kernels',
-                            '.ipython/profile_julia', '.ipython/profile_default', '.local/share/jupyter/kernels']
+    USER_HOME_ESSENTIALS = ['.juliabox', '.jupyter']
 
     SH_DEVICE_VERSION = None
 

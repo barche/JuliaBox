@@ -30,16 +30,16 @@ cp ${DIR}/setup_julia.sh ${CFG_DIR}
 
 sudo chown -R ${IDS} ${CFG_DIR}
 sudo chown -R ${IDS} ${PKG_DIR}
-docker run -i -v ${CFG_DIR}:${CFG_MOUNT} -v ${PKG_DIR}:/opt/julia_packages -e "JULIA_PKGDIR=/opt/julia_packages/.julia" -e "IPYTHONDIR=${CFG_MOUNT}/.ipython" -e "JUPYTER_DATA_DIR=${CFG_MOUNT}/.local/share/jupyter/kernels" --entrypoint="${CFG_MOUNT}/setup_julia.sh" juliabox/juliabox:latest || error_exit "Could not run juliabox image"
+docker run -i -v ${CFG_DIR}:${CFG_MOUNT} -v ${PKG_DIR}:/opt/julia_packages -e "JULIA_PKGDIR=/opt/julia_packages/.julia" -e "JUPYTER_CONFIG_DIR=${CFG_MOUNT}/.jupyter" -e "JUPYTER_DATA_DIR=${CFG_MOUNT}/.jupyter" --entrypoint="${CFG_MOUNT}/setup_julia.sh" juliabox/juliabox:latest || error_exit "Could not run juliabox image"
 
 sudo chown -R ${IDS} ${CFG_DIR}
 sudo chown -R ${IDS} ${PKG_DIR}
 ${SUDO_JUSER} rm ${CFG_DIR}/setup_julia.sh
 
-${SUDO_JUSER} mkdir -p ${CFG_DIR}/.ipython/profile_default/static/custom
-${SUDO_JUSER} cp ${DIR}/IJulia/ipython_notebook_config.py ${CFG_DIR}/.ipython/profile_default/ipython_notebook_config.py
-${SUDO_JUSER} cp ${DIR}/IJulia/custom.css ${CFG_DIR}/.ipython/profile_default/static/custom/custom.css
-${SUDO_JUSER} cp ${DIR}/IJulia/custom.js ${CFG_DIR}/.ipython/profile_default/static/custom/custom.js
+${SUDO_JUSER} mkdir ${CFG_DIR}/.jupyter/custom
+${SUDO_JUSER} cp ${DIR}/IJulia/ipython_notebook_config.py ${CFG_DIR}/.jupyter/jupyter_notebook_config.py
+${SUDO_JUSER} cp ${DIR}/IJulia/custom.css ${CFG_DIR}/.jupyter/custom/custom.css
+${SUDO_JUSER} cp ${DIR}/IJulia/custom.js ${CFG_DIR}/.jupyter/custom/custom.js
 
 # install RISE (slideshow plugin)
 #${SUDO_JUSER} cd /home/juser && git clone https://github.com/damianavila/RISE.git && cd RISE && git checkout -b 3.x 3.x && python setup.py install && cd .. && rm -rf RISE
