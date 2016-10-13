@@ -440,13 +440,17 @@ var JuliaBox = (function($, _, undefined){
     	hide_inpage_alert: function () {
     		_msg_div.hide();
     	},
+
+        clear_cookies: function () {
+            for (var it in $.cookie()) {
+                if((it.indexOf("jb_") == 0) || (it.indexOf("jp_") == 0)) {
+                    $.removeCookie(it);
+                }
+            }
+        },
     	
     	logout_at_browser: function () {
-			for (var it in $.cookie()) {
-				if((it.indexOf("jb_") == 0) || (it.indexOf("jp_") == 0)) {
-					$.removeCookie(it);
-				}
-			}
+                        self.clear_cookies();
 			top.location.href = '/';
 			top.location.reload(true);
     	},
@@ -470,10 +474,11 @@ var JuliaBox = (function($, _, undefined){
     	inform_logged_out: function (pingfail) {
     		if(!_loggedout) {
 	    		_loggedout = true;
-	    		msg = "Your session has terminated / timed out. Please log in again.";
+		        msg = "Your session has terminated / timed out. Please log in again. If you have any unsaved notebook tabs open, you can save them once you are logged in.";
 	    		if(pingfail) {
 	    		    msg += "<br/><br/>You may also get logged out if JuliaBox servers are not reachable from your browser <br/>" +
 	    		           "or you have too many JuliaBox windows open."
+                            self.clear_cookies();
 	    		}
 	    		else {
 	    		    self.do_logout();
