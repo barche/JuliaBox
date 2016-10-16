@@ -36,11 +36,11 @@
             }
             return true;
         };
-        
+
         function valLoginForm() {
         	if(!areCookiesEnabled()) {
         		alert("Your browser settings do not allow cookies. JuliaBox requires cookies to log you in. Please enable them in your browser settings and try again.");
-        		return false; 
+        		return false;
         	}
         	return true;
         }
@@ -142,18 +142,6 @@
     </div>
 
     <div class="footer">
-        <div class="container u-center">
-            Classes in these universities are using JuliaBox.
-            <br/>
-            <a href="http://web.mit.edu"><img height="60" style="padding:.8em" src="/assets/img/mit.jpg"></a>
-            <a href="http://stanford.edu"><img height="60" style="padding:.8em" src="/assets/img/stanford.png"></a>
-            <a href="http://cuny.edu"><img height="60" style="padding:.8em" src="/assets/img/cuny.jpg"></a>
-            <br/>
-            <br/>
-        </div>
-        <div class="container u-center">
-            Thank you <a href="http://aws.amazon.com"><img alt="Amazon AWS" class="aws-logo" src="/assets/img/aws-logo.png" ></a> for generously hosting JuliaBox!
-        </div>
     </div>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -162,9 +150,9 @@
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	
+
     ga('create', 'UA-28835595-2', 'auto');
     ga('send', 'pageview');
-	</script>    
+	</script>
 </body>
 </html>

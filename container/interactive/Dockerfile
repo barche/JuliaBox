@@ -1,11 +1,56 @@
 # Docker file for JuliaBox
 # Version:42
 
-FROM julialang/julia
+FROM ubuntu:14.04
 # Switching the base to the bare julia image helps during JuliaBox development by reducing image size
 # FROM julialang/julia:v0.3.12
 
 MAINTAINER Tanmay Mohapatra
+
+RUN apt-get update \
+    && apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o DPkg::Options::="--force-confold" \
+    && apt-get install -y \
+    man-db \
+    libc6 \
+    libc6-dev \
+    build-essential \
+    wget \
+    curl \
+    file \
+    vim \
+    screen \
+    tmux \
+    unzip \
+    pkg-config \
+    cmake \
+    gfortran \
+    gettext \
+    libreadline-dev \
+    libncurses-dev \
+    libpcre3-dev \
+    libgnutls28 \
+    libzmq3-dev \
+    libzmq3 \
+    python \
+    python-yaml \
+    python-m2crypto \
+    python-crypto \
+    msgpack-python \
+    python-dev \
+    python-setuptools \
+    supervisor \
+    python-jinja2 \
+    python-requests \
+    python-isodate \
+    python-git \
+    python-pip \
+    && apt-get clean
+
+RUN pip install --upgrade pyzmq PyDrive google-api-python-client jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
+
+RUN pip install 'notebook==4.2'
+
+RUN pip install 'rise==4.0.0b1'; jupyter-nbextension install rise --py --sys-prefix; jupyter-nbextension enable rise --py --sys-prefix
 
 RUN easy_install widgetsnbextension
 RUN easy_install ipywidgets
@@ -33,7 +78,7 @@ RUN mkdir -p /opt/julia-0.5.0 && \
 RUN ln -fs /opt/julia-0.5.0 /opt/julia-0.5
 
 # Make Julia 0.5 the default
-RUN rm /opt/julia && ln -fs /opt/julia-0.5 /opt/julia
+RUN rm -f /opt/julia && ln -fs /opt/julia-0.5 /opt/julia
 
 # JuliaBox package bundle shall be mounted at /opt/julia_packages.
 # They are added to LOAD_PATH through respective juliarc.jl scripts.
