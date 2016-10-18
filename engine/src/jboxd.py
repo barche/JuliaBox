@@ -12,6 +12,6 @@ if __name__ == "__main__":
     user_conf_file = os.path.join(conf_dir, 'jbox.user')
 
     JBoxCfg.read(conf_file, user_conf_file)
-    JBoxCfg.dckr = docker.Client()
+    JBoxCfg.dckr = docker.Client(version='auto')
 
     JBoxd().run()
