@@ -81,10 +81,13 @@ RUN pip install --upgrade pyzmq PyDrive google-api-python-client jsonpointer jso
 
 RUN pip install 'notebook==4.2'
 
-RUN pip install 'rise==4.0.0b1'; jupyter-nbextension install rise --py --sys-prefix; jupyter-nbextension enable rise --py --sys-prefix
+RUN pip install 'rise==4.0.0b1'; jupyter nbextension install rise --py --sys-prefix; jupyter nbextension enable rise --py --sys-prefix
+
+RUN pip install hide_code
 
 RUN easy_install widgetsnbextension
 RUN easy_install ipywidgets
+RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 RUN ln -fs /opt/julia/bin/julia /usr/bin/julia
 RUN git clone https://github.com/tanmaykm/shellinabox_fork.git; cd shellinabox_fork; ./configure; make install; cd ..; rm -rf shellinabox_fork
