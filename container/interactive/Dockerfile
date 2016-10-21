@@ -29,6 +29,8 @@ RUN apt-get update \
     libncurses-dev \
     libpcre3-dev \
     libgnutls28 \
+    libxext6 \
+    libxtst6 \
     libzmq3-dev \
     libzmq3 \
     python \
@@ -45,6 +47,35 @@ RUN apt-get update \
     python-git \
     python-pip \
     && apt-get clean
+
+RUN apt-get update && apt-get install -y texlive-latex-base texlive-latex-extra texlive-latex-recommended
+
+RUN apt-get update \
+    && apt-get install -y \
+    imagemagick \
+    inkscape \
+    pandoc \
+    pdf2svg \
+    hdf5-tools \
+    python-sympy \
+    python-numpy \
+    python-scipy \
+    python-matplotlib \
+    glpk-utils \
+    && apt-get clean
+
+# Cairo
+RUN apt-get install -y \
+    gettext \
+    libpango1.0-dev \
+    libpango1.0-0 \
+    libgvc6 \
+    graphviz \
+    libgraphviz-dev \
+    && apt-get clean
+
+# SymPy
+RUN pip install --upgrade sympy
 
 RUN pip install --upgrade pyzmq PyDrive google-api-python-client jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
 
