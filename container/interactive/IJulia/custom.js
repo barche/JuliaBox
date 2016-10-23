@@ -480,3 +480,12 @@ $(document).ready(function() {
     });
     $('#ipython_notebook > a > img').attr('src', '/assets/img/ipynblogo.png');
 });
+
+define([
+'base/js/events'
+], 
+function(events) {
+    events.on('app_initialized.NotebookApp', function(){
+        require(['custom/hide_code']);
+    });
+});

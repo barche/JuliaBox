@@ -1,7 +1,7 @@
 # Docker file for JuliaBox APIs
 # Version:42
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Tanmay Mohapatra
 
@@ -26,9 +26,8 @@ RUN apt-get update \
     libreadline-dev \
     libncurses-dev \
     libpcre3-dev \
-    libgnutls28 \
+    libgnutls28-dev \
     libzmq3-dev \
-    libzmq3 \
     python \
     python-yaml \
     python-m2crypto \
@@ -44,7 +43,7 @@ RUN apt-get update \
     python-pip \
     && apt-get clean
 
-RUN pip install --upgrade pyzmq PyDrive google-api-python-client jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
+RUN pip install --upgrade pyzmq PyDrive google-api-python-client==1.5.2 jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
 
 RUN pip install 'notebook==4.2'
 

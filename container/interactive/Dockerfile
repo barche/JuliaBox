@@ -1,7 +1,7 @@
 # Docker file for JuliaBox
 # Version:42
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 # Switching the base to the bare julia image helps during JuliaBox development by reducing image size
 # FROM julialang/julia:v0.3.12
 
@@ -28,11 +28,10 @@ RUN apt-get update \
     libreadline-dev \
     libncurses-dev \
     libpcre3-dev \
-    libgnutls28 \
+    libgnutls28-dev \
     libxext6 \
     libxtst6 \
     libzmq3-dev \
-    libzmq3 \
     python \
     python-yaml \
     python-m2crypto \
@@ -48,7 +47,7 @@ RUN apt-get update \
     python-pip \
     && apt-get clean
 
-RUN apt-get update && apt-get install -y texlive-latex-base texlive-latex-extra texlive-latex-recommended
+RUN apt-get update && apt-get install -y texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-luatex
 
 RUN apt-get update \
     && apt-get install -y \
@@ -74,15 +73,18 @@ RUN apt-get install -y \
     libgraphviz-dev \
     && apt-get clean
 
+RUN pip install --upgrade pip
+
 # SymPy
 RUN pip install --upgrade sympy
 
-RUN pip install --upgrade pyzmq PyDrive google-api-python-client jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
+RUN pip install --upgrade pyzmq PyDrive google-api-python-client==1.5.2 jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
 
-RUN pip install 'notebook==4.2'
+RUN pip install 'notebook'
 
 RUN pip install 'rise==4.0.0b1'; jupyter nbextension install rise --py --sys-prefix; jupyter nbextension enable rise --py --sys-prefix
 
+RUN pip install pdfkit
 RUN pip install hide_code
 
 RUN easy_install widgetsnbextension
@@ -94,6 +96,8 @@ RUN git clone https://github.com/tanmaykm/shellinabox_fork.git; cd shellinabox_f
 
 # CloudArray dependencies
 RUN apt-get install -y sshpass
+
+RUN apt-get update && apt-get install -y lsb-release
 
 # add juser
 # create group and user with specific ids if required on systems where the user running juliabox is not the first user

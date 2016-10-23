@@ -7,7 +7,7 @@
 # Place certificates at /jboxweb/certs
 # Mount log folder at /jboxweb/logs
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Tanmay Mohapatra
 

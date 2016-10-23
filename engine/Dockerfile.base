@@ -15,7 +15,7 @@
 #   - ensure user home mounts are initialized on host
 # - /var/run/docker.sock pointing to docker socket
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Tanmay Mohapatra
 
@@ -37,13 +37,14 @@ RUN apt-get update \
     libzmq3-dev \
     language-pack-en-base \
     libmysqlclient-dev \
+    sudo \
     && apt-get clean
 
 ENV LANG en_US.utf8
 
 RUN pip install tornado \
     futures \
-    google-api-python-client \
+    google-api-python-client==1.5.2 \
     PyDrive \
     boto \
     pycrypto \
@@ -55,7 +56,7 @@ RUN pip install tornado \
 
 # Create docker group and juser which will run the engine.
 # Note: Assumption of docker gid=999 may not be true always. But this is better than a 777 permission on the docker socket.
-RUN groupadd -g 999 docker \
+RUN groupadd -g 1999 docker \
     && groupadd juser \
     && useradd -m -d /home/juser -s /bin/bash -g juser -G staff,docker juser \
     && echo "export HOME=/home/juser" >> /home/juser/.bashrc \
