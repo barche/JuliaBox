@@ -80,8 +80,7 @@ RUN pip install --upgrade sympy
 
 RUN pip install --upgrade pyzmq PyDrive google-api-python-client==1.5.2 jsonpointer jsonschema tornado sphinx pygments nose readline mistune invoke
 
-RUN pip install 'ipython<6.0'
-RUN pip install 'notebook<6.0'
+RUN pip install --upgrade 'ipython<6.0' 'notebook<6.0'
 
 RUN pip install 'rise<6.0'; jupyter nbextension install rise --py --sys-prefix; jupyter nbextension enable rise --py --sys-prefix
 
