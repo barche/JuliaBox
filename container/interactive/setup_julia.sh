@@ -35,13 +35,13 @@ function list_packages {
     /opt/julia-${JULIA_VER}/bin/julia -e 'println("JULIA_HOME: $JULIA_HOME\n"); versioninfo(); println(""); Pkg.status()' > /opt/julia_packages/julia-${JULIA_VER}.packages.txt
 }
 
-# Install packages for Julia 0.4 and 0.5
+# Install packages for Julia 0.5 and 0.6
 DEFAULT_PACKAGES="IJulia PyPlot Interact Colors SymPy PyCall Plots TikzPictures GR SimJulia Unitful"
 INTERNAL_PACKAGES="https://github.com/tanmaykm/JuliaBoxUtils.jl.git"
 BUILD_PACKAGES="JuliaBoxUtils IJulia PyPlot"
 CHECKOUT_PACKAGES="GR"
 
-for ver in 0.4 0.5
+for ver in 0.5 0.6
 do
     init_packages "$ver"
     include_packages "$ver" "$DEFAULT_PACKAGES" "add"
