@@ -36,10 +36,10 @@ function list_packages {
 }
 
 # Install packages for Julia 0.5 and 0.6
-DEFAULT_PACKAGES="IJulia PyPlot Interact Colors SymPy PyCall Plots TikzPictures GR SimJulia Unitful PlotlyJS PGFPlots StaticArrays BenchmarkTools"
+DEFAULT_PACKAGES="IJulia PyPlot Interact Colors SymPy PyCall Plots TikzPictures GR SimJulia Unitful PlotlyJS PGFPlots StaticArrays BenchmarkTools ForwardDiff"
 INTERNAL_PACKAGES="https://github.com/tanmaykm/JuliaBoxUtils.jl.git"
 BUILD_PACKAGES="JuliaBoxUtils IJulia PyPlot"
-CHECKOUT_PACKAGES="GR"
+CHECKOUT_PACKAGES=""
 
 for ver in 0.5 0.6
 do
