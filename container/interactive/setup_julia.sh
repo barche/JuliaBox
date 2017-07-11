@@ -36,7 +36,7 @@ function list_packages {
 }
 
 # Install packages for Julia 0.5 and 0.6
-DEFAULT_PACKAGES="IJulia PyPlot Interact Colors ColorBrewer SymPy PyCall Plots TikzPictures GR SimJulia Unitful PlotlyJS PGFPlots StaticArrays BenchmarkTools ForwardDiff"
+DEFAULT_PACKAGES="IJulia PyPlot Interact Colors ColorBrewer SymPy PyCall Plots TikzPictures GR SimJulia Unitful PlotlyJS PGFPlots StaticArrays BenchmarkTools ForwardDiff Distributions"
 INTERNAL_PACKAGES="https://github.com/tanmaykm/JuliaBoxUtils.jl.git"
 BUILD_PACKAGES="JuliaBoxUtils IJulia PyPlot"
 CHECKOUT_PACKAGES="ColorBrewer"
